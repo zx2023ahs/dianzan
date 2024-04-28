@@ -1,0 +1,12 @@
+{
+  "codeConfig": {
+    "type": "cn.rh.flash.code.CodeConfig",
+    "fields": {
+      entityModel: "jk-core",
+      daoModel: "jk-core",
+      serviceModel: "jk-core",
+      controllerModel: "jk-api",
+      viewModel: "jk-vue-admin"
+    }
+  }
+}

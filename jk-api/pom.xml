@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jkpro-cdb</artifactId>
+        <groupId>cn.jk</groupId>
+        <version>1.0</version>
+    </parent>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jk-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.jk</groupId>
+            <artifactId>jk-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <!--单元测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+
+    </dependencies>
+
+    <build>
+
+        <finalName>${artifactId}</finalName>
+
+        <plugins>
+
+            <!--     打包插件       -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>cn.rh.flash.api.ApiApplication</mainClass>
+                            <classpathPrefix>lib</classpathPrefix>
+                            <!-- 如果不加这一句则依赖的SNAPSHOT的jar包就会表现为MANIFEST.MF中的 Class-Path: lib/facede-user-1.0-20160512.093945-1.jar
+                                但是打包到../lib/facede-user-1.0-SNAPSHOT.jar下面包,这样就会出现找不到类的情况 -->
+                            <!--<useUniqueVersions>false</useUniqueVersions> -->
+                        </manifest>
+                        <!--                        <manifestEntries>-->
+                        <!--                            <Class-Path>../lib/</Class-Path>-->
+                        <!--                        </manifestEntries>-->
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!--     maven-assembly-plugin       -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <!-- The configuration of the plugin -->
+                <configuration>
+                    <descriptors>
+                        <!-- 配置 assembly 的路径 -->
+                        <descriptor>src/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+        <!--        <plugins>-->
+        <!--            &lt;!&ndash;以war形式运行 配置开始&ndash;&gt;-->
+        <!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <artifactId>maven-war-plugin</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <warName>api</warName>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <failOnMissingWebXml>false</failOnMissingWebXml>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
+        <!--            &lt;!&ndash; 以war形式运行 配置结束&ndash;&gt;-->
+
+        <!--            &lt;!&ndash;以jar包形式单独部署 配置开始:并将packaging调整为jar&ndash;&gt;-->
+        <!--            <plugin>-->
+        <!--                <groupId>org.springframework.boot</groupId>-->
+        <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+        <!--                    <version>2.6.2</version>-->
+        <!--                <configuration>-->
+        <!--                    <mainClass>cn.rh.flash.api.ApiApplication</mainClass>-->
+        <!--                    <layout>ZIP</layout>-->
+        <!--                    <finalName>jk-api</finalName>-->
+        <!--                </configuration>-->
+        <!--                <executions>-->
+        <!--                    <execution>-->
+        <!--                        <goals>-->
+        <!--                            <goal>repackage</goal>-->
+        <!--                        </goals>-->
+        <!--                    </execution>-->
+        <!--                </executions>-->
+        <!--            </plugin>-->
+        <!--            &lt;!&ndash;以jar包形式单独部署 配置结束&ndash;&gt;-->
+
+        <!--        </plugins>-->
+    </build>
+</project>

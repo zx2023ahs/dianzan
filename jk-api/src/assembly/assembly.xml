@@ -1,0 +1,80 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <dependencySets>
+        <dependencySet>
+            <!--不使用项目的artifact，第三方jar不要解压，打包进zip文件的lib目录-->
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <!-- 把项目脚本文件，打包进zip文件的根目录 -->
+        <fileSet>
+            <directory>${project.basedir}/src/bin</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>*.sh</include>
+                <include>create_stream.txt</include>
+            </includes>
+        </fileSet>
+
+        <!-- 把配置文件，打包进zip文件的conf目录 -->
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <outputDirectory>config</outputDirectory>
+            <includes>
+                <include>*.xml</include>
+                <include>*.properties</include>
+                <include>*.yml</include>
+                <include>*.key</include>
+            </includes>
+        </fileSet>
+
+        <!-- 前端文件，打包进zip文件的dist目录 -->
+        <fileSet>
+            <directory>${project.basedir}/src/dist</directory>
+            <outputDirectory>dist</outputDirectory>
+        </fileSet>
+
+        <!-- 把配置文件，打包进zip文件的conf目录 -->
+        <fileSet>
+            <directory>${project.basedir}/src/sql</directory>
+            <outputDirectory>sql</outputDirectory>
+            <includes>
+                <include>*.sql</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/static</directory>
+            <outputDirectory>static</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/templates</directory>
+            <outputDirectory>templates</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- 把jar，打进zip文件的根目录 -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>${project.artifactId}.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
